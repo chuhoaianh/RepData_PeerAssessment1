@@ -171,7 +171,8 @@ hist(TotalStepsPerDay2$steps, col = "blue", main = "Histogram of total steps per
 ```
 
 ![](figure/PA1_plot3-1.png) 
-Calcualte mean and median
+  
+Calculate mean and median
 
 ```r
 mean(TotalStepsPerDay2$steps)
