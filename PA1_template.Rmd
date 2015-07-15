@@ -6,7 +6,7 @@ output: html_document
 ---
 
 #Loading and preprocessing the data
-```{r}
+```{r loading_and_preprocessing_the_data}
 df <- read.csv("activity.csv", sep = ",", header = TRUE, na.strings = "NA")
 names(df)
 head(df)
@@ -18,7 +18,7 @@ head(df)
 TotalStepsPerDay <- aggregate(steps ~ date, data = df, sum, na.rm = TRUE)
 ```
 2. Make a histogram of the total number of steps taken each day using hist()
-```{r, echo = TRUE}
+```{r PA1_plot1, echo = TRUE}
 hist(TotalStepsPerDay$steps, col = "blue", main = "Histogram of total steps per day", xlab = "Day")
 ```
 
@@ -42,7 +42,7 @@ Then calculate time series of average steps by 5-min interval, then plot it
 AverageSteps <- tapply(m$steps, m$interval, mean, na.rm = TRUE)
 ```
 Here is the plot function
-```{r, echo=TRUE}
+```{r PA1_plot2, echo=TRUE}
 plot(row.names(AverageSteps), AverageSteps, 
      col = "blue", 
      type = "l", 
@@ -110,7 +110,7 @@ for (i in 1:nrow(new_df2)){
 
 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-```{r}
+```{r PA1_plot3}
 TotalStepsPerDay2 <- aggregate(steps ~ date, data = new_df2, sum, na.rm = TRUE)
 hist(TotalStepsPerDay2$steps, col = "blue", main = "Histogram of total steps per day", xlab = "Day")
 ```
@@ -144,7 +144,7 @@ df$daylevel <- as.factor(df$daylevel)
 AverageStepsByDayLevel <- aggregate(steps ~ interval + daylevel, data = df, mean)
 library(lattice) #xyplot is in lattice package
 ```
-```{r, echo = TRUE}
+```{r PA1_plot4, echo = TRUE}
 xyplot(steps ~ interval | daylevel, AverageStepsByDayLevel, 
        layout = c(1, 2), 
        type = "l", 
