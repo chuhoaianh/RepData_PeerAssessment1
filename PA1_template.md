@@ -115,12 +115,12 @@ sum(is.na(df))
 
 I decided to do 2 strategies  
 *a. Mean of steps for that day*  
-Create a new dataset that is equal to the original dataset but with the missing data filled in.
+- First, create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 ```r
 new_df <- df  # Create new data frame
 ```
-Get the mean of steps per day
+- Second, get the mean of steps per day. Then loop thru it if there are NaN, convert it to 0 (means on that day there are no record)
 
 ```r
 AverageStepsPerDay <- tapply(new_df$steps, new_df$date, mean, na.rm = TRUE)
@@ -129,7 +129,7 @@ for (i in 1:length(AverageStepsPerDay)){
     AverageStepsPerDay[i] = 0       #if the mean of that day is NaN convert it to 0  
 }
 ```
-loop thru the date, if it is NA conver it to the mean of that date
+- Third, loop thru the date, if it is NA convert it to the mean of that date
 
 ```r
 for (i in 1:nrow(new_df)){
@@ -139,12 +139,12 @@ for (i in 1:nrow(new_df)){
 }
 ```
 *b. Mean for that 5-min interval*  
-Create a new dataset that is equal to the original dataset but with the missing data filled in.
+- First, create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 ```r
 new_df2 <- df # Create new data frame
 ```
-Get the mean of steps per 5-min interval
+- Second, get the mean of steps per 5-min interval, then loop thru it if there are NaN, convert it to 0 (means on that day there are no record)
 
 ```r
 AverageStepsPer5Min <- tapply(new_df2$steps, new_df2$interval, mean, na.rm = TRUE)
@@ -153,7 +153,7 @@ for (i in 1:length(AverageStepsPer5Min)){
     AverageStepsPer5Min[i] <- 0       #if the mean of that day is NaN convert it to 0  
 }
 ```
-Loop thru the date, if it is NA conver it to the mean of that date
+- Third, loop thru the date, if it is NA convert it to the mean of that 5-min interval
 
 ```r
 for (i in 1:nrow(new_df2)){
