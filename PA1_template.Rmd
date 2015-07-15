@@ -2,7 +2,9 @@
 title: "PA1_template"
 author: "Anh Chu"
 date: "July 15, 2015"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
 #Loading and preprocessing the data

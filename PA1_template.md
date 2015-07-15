@@ -1,9 +1,6 @@
----
-title: "PA1_template"
-author: "Anh Chu"
-date: "July 15, 2015"
-output: html_document
----
+# PA1_template
+Anh Chu  
+July 15, 2015  
 
 #Loading and preprocessing the data
 
@@ -42,7 +39,7 @@ TotalStepsPerDay <- aggregate(steps ~ date, data = df, sum, na.rm = TRUE)
 hist(TotalStepsPerDay$steps, col = "blue", main = "Histogram of total steps per day", xlab = "Day")
 ```
 
-![plot of chunk PA1_plot1](figure/PA1_plot1-1.png) 
+![](PA1_template_files/figure-html/PA1_plot1-1.png) 
 
 3. Calculate and report the mean and median of the total number of steps taken per day
 
@@ -88,7 +85,7 @@ plot(row.names(AverageSteps), AverageSteps,
      ylab = "Average across all Days")
 ```
 
-![plot of chunk PA1_plot2](figure/PA1_plot2-1.png) 
+![](PA1_template_files/figure-html/PA1_plot2-1.png) 
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -171,7 +168,7 @@ TotalStepsPerDay2 <- aggregate(steps ~ date, data = new_df2, sum, na.rm = TRUE)
 hist(TotalStepsPerDay2$steps, col = "blue", main = "Histogram of total steps per day", xlab = "Day")
 ```
 
-![plot of chunk PA1_plot3](figure/PA1_plot3-1.png) 
+![](PA1_template_files/figure-html/PA1_plot3-1.png) 
 Calcualte mean and median
 
 ```r
@@ -225,4 +222,4 @@ xyplot(steps ~ interval | daylevel, AverageStepsByDayLevel,
        ylab = "Number of steps")
 ```
 
-![plot of chunk PA1_plot4](figure/PA1_plot4-1.png) 
+![](PA1_template_files/figure-html/PA1_plot4-1.png) 
