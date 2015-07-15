@@ -2,6 +2,7 @@
 Anh Chu  
 July 15, 2015  
 
+
 #Loading and preprocessing the data
 
 ```r
@@ -28,20 +29,20 @@ head(df)
 ```
 
 #What is mean total number of steps taken per day?
-1. Calculate the total number of steps taken per day using aggregate()
+#####1. Calculate the total number of steps taken per day using aggregate()
 
 ```r
 TotalStepsPerDay <- aggregate(steps ~ date, data = df, sum, na.rm = TRUE)
 ```
-2. Make a histogram of the total number of steps taken each day using hist()
+#####2. Make a histogram of the total number of steps taken each day using hist()
 
 ```r
 hist(TotalStepsPerDay$steps, col = "blue", main = "Histogram of total steps per day", xlab = "Day")
 ```
 
-![](PA1_template_files/figure-html/PA1_plot1-1.png) 
+![](figure/PA1_plot1-1.png) 
 
-3. Calculate and report the mean and median of the total number of steps taken per day
+#####3. Calculate and report the mean and median of the total number of steps taken per day
 
 ```r
 mean(TotalStepsPerDay$steps)
@@ -60,7 +61,7 @@ median(TotalStepsPerDay$steps)
 ```
 
 #What is the average daily activity pattern?
-1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis) 
+#####1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis) 
 
 First, I create a new data frame with only "steps" and "interval" columns. Then I convert column "interval" to factor, so it can be used in tapply()
 
@@ -85,9 +86,9 @@ plot(row.names(AverageSteps), AverageSteps,
      ylab = "Average across all Days")
 ```
 
-![](PA1_template_files/figure-html/PA1_plot2-1.png) 
+![](figure/PA1_plot2-1.png) 
 
-2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+#####2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 ```r
 names(which.max(AverageSteps))
@@ -98,7 +99,7 @@ names(which.max(AverageSteps))
 ```
 
 #Imputing missing values
-1. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+#####1. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 
 ```r
 sum(is.na(df))
@@ -107,17 +108,18 @@ sum(is.na(df))
 ```
 ## [1] 2304
 ```
-2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
-3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
+#####2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
+#####3. Create a new dataset that is equal to the original dataset but with the missing data filled in. (2 and 3 are together)
 
 I decided to do 2 strategies  
+  
 *a. Mean of steps for that day*  
-- First, create a new dataset that is equal to the original dataset but with the missing data filled in.
+First, create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 ```r
 new_df <- df  # Create new data frame
 ```
-- Second, get the mean of steps per day. Then loop thru it if there are NaN, convert it to 0 (means on that day there are no record)
+Second, get the mean of steps per day. Then loop thru it if there are NaN, convert it to 0 (means on that day there are no record)
 
 ```r
 AverageStepsPerDay <- tapply(new_df$steps, new_df$date, mean, na.rm = TRUE)
@@ -126,7 +128,7 @@ for (i in 1:length(AverageStepsPerDay)){
     AverageStepsPerDay[i] = 0       #if the mean of that day is NaN convert it to 0  
 }
 ```
-- Third, loop thru the date, if it is NA convert it to the mean of that date
+Third, loop thru the date, if it is NA convert it to the mean of that date
 
 ```r
 for (i in 1:nrow(new_df)){
@@ -136,12 +138,12 @@ for (i in 1:nrow(new_df)){
 }
 ```
 *b. Mean for that 5-min interval*  
-- First, create a new dataset that is equal to the original dataset but with the missing data filled in.
+First, create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 ```r
 new_df2 <- df # Create new data frame
 ```
-- Second, get the mean of steps per 5-min interval, then loop thru it if there are NaN, convert it to 0 (means on that day there are no record)
+Second, get the mean of steps per 5-min interval, then loop thru it if there are NaN, convert it to 0 (means on that day there are no record)
 
 ```r
 AverageStepsPer5Min <- tapply(new_df2$steps, new_df2$interval, mean, na.rm = TRUE)
@@ -150,7 +152,7 @@ for (i in 1:length(AverageStepsPer5Min)){
     AverageStepsPer5Min[i] <- 0       #if the mean of that day is NaN convert it to 0  
 }
 ```
-- Third, loop thru the date, if it is NA convert it to the mean of that 5-min interval
+Third, loop thru the date, if it is NA convert it to the mean of that 5-min interval
 
 ```r
 for (i in 1:nrow(new_df2)){
@@ -160,7 +162,7 @@ for (i in 1:nrow(new_df2)){
 }
 ```
 
-4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
+#####4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
 
 ```r
@@ -168,7 +170,7 @@ TotalStepsPerDay2 <- aggregate(steps ~ date, data = new_df2, sum, na.rm = TRUE)
 hist(TotalStepsPerDay2$steps, col = "blue", main = "Histogram of total steps per day", xlab = "Day")
 ```
 
-![](PA1_template_files/figure-html/PA1_plot3-1.png) 
+![](figure/PA1_plot3-1.png) 
 Calcualte mean and median
 
 ```r
@@ -189,7 +191,7 @@ median(TotalStepsPerDay2$steps)
 After replacing the missing values, the median changes from 10765 to 10766, mean values are still the same  
 
 #Are there differences in activity patterns between weekdays and weekends?
-1. Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+#####1. Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 
 ```r
 df$daylevel <- "NA" #initialize new daylevel column in df
@@ -207,7 +209,7 @@ for(i in 1:nrow(df)){
 }
 df$daylevel <- as.factor(df$daylevel)
 ```
-2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis)
+#####2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis)
 
 ```r
 AverageStepsByDayLevel <- aggregate(steps ~ interval + daylevel, data = df, mean)
@@ -222,4 +224,4 @@ xyplot(steps ~ interval | daylevel, AverageStepsByDayLevel,
        ylab = "Number of steps")
 ```
 
-![](PA1_template_files/figure-html/PA1_plot4-1.png) 
+![](figure/PA1_plot4-1.png) 
